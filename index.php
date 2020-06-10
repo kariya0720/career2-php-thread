@@ -2,7 +2,7 @@
 <head><title>掲示板</title></head>
 <body>
 
-<h1>掲示板App</h1>
+<h1>掲示板</h1>
 
 <h2>投稿フォーム</h2>
 

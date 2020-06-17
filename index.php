@@ -1,5 +1,5 @@
 <html>
-<head><title>掲示板App</title></head>
+<head><title>掲示板くん</title></head>
 <body>
 
 <h1>掲示板</h1>

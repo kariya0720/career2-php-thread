@@ -1,5 +1,5 @@
 <html>
-<head><title>掲示板</title></head>
+<head><title>掲示板App</title></head>
 <body>
 
 <h1>掲示板</h1>
@@ -14,6 +14,11 @@
 </form>
 
 <h2>スレッド</h2>
+
+<form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+    <input type="hidden" name="method" value="DELETE">
+    <button type="submit">投稿を全削除する</button>
+</form>
 
 <?php
 
@@ -38,12 +43,13 @@ function writeData() {
     $contents = nl2br($contents);
 
     $data = "<hr>\n";
-    $data = $data."<p>投稿日時:".date("Y年n月d日H時i分s秒")."</p>\n";
+    $data = $data."<p>投稿日時: ".date("Y/m/d H:i:s")."</p>\n";
     $data = $data."<p>投稿者:".$personal_name."</p>\n";
     $data = $data."<p>内容:</p>\n";
     $data = $data."<p>".$contents."</p>\n";
 
     $fp = fopen(THREAD_FILE, 'a');
+    
 
     if ($fp){
         if (flock($fp, LOCK_EX)){
@@ -58,17 +64,23 @@ function writeData() {
     }
 
     fclose($fp);
+}
 
-    // ブラウザのリロード対策
-    //11:07
-    $redirect_url = $_SERVER['HTTP_REFERER'];
-    header("Location: $redirect_url");
-    exit;
-
+function deleteData() {
+    file_put_contents(THREAD_FILE, "");
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    writeData();
+    if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
+        deleteData();
+    } else {
+        writeData();
+    }
+    
+    // ブラウザのリロード対策
+    $redirect_url = $_SERVER['HTTP_REFERER'];
+    header("Location: $redirect_url");
+    exit;
 }
 
 readData();

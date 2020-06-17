@@ -11,14 +11,14 @@
     <textarea name="contents" rows="8" cols="40" placeholder="内容" required>
 </textarea><br><br>
     <input type="submit" name="btn" value="投稿する">
-</form>
-
-<h2>スレッド</h2>
+</form>,
 
 <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
     <input type="hidden" name="method" value="DELETE">
     <button type="submit">投稿を全削除する</button>
 </form>
+
+<h2>スレッド</h2>
 
 <?php
 
